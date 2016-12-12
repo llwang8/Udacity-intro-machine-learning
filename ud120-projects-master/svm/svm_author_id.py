@@ -95,6 +95,13 @@ print "num for Sara:", len(pred)-sum(pred)
 # predict time: 0.979 s
 # 0.892491467577
 
+# full training dataset with rbf kernel (C=10000)
+# training time: 105.053 s
+# predict time: 10.576 s
+# 0.990898748578
+# num for Chris: 877
+# num for Sara: 881
+
 #########################################################
 
 

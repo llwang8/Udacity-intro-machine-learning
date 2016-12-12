@@ -28,15 +28,30 @@ plt.show()
 ################################################################################
 
 
-### your code here!  name your classifier object clf if you want the 
+### your code here!  name your classifier object clf if you want the
 ### visualization code (prettyPicture) to show you the decision boundary
 
+from sklearn.metrics import accuracy_score
 
+#from sklearn.neighbors.nearest_centroid import NearestCentroid
+#clf = NearestCentroid()
+#clf = fit(features_train, labels_train)
+#pred = clf.predict(features_test)
 
+from sklearn.neighbors import KNeighborsClassifier
+clf = KNeighborsClassifier()
+print 'Training starts'
+clf = clf.fit(features_train, labels_train)
+print 'Training complete'
 
+print 'Beginning prediction'
+pred = clf.predict(features_test)
+print 'Prediction finishes'
 
-
-
+from sklearn.metrics import accuracy_score
+print 'Calculating Accuracy'
+accuracy = accuracy_score(labels_test, pred)
+print 'The accuracy is ', accuracy
 
 try:
     prettyPicture(clf, features_test, labels_test)
