@@ -32,24 +32,14 @@ plt.show()
 ### visualization code (prettyPicture) to show you the decision boundary
 
 from sklearn.metrics import accuracy_score
-
-#from sklearn.neighbors.nearest_centroid import NearestCentroid
-#clf = NearestCentroid()
-#clf = fit(features_train, labels_train)
-#pred = clf.predict(features_test)
-
 from sklearn.neighbors import KNeighborsClassifier
-clf = KNeighborsClassifier()
-print 'Training starts'
+
+n_neighbors = 38
+
+clf = KNeighborsClassifier(n_neighbors)
 clf = clf.fit(features_train, labels_train)
-print 'Training complete'
-
-print 'Beginning prediction'
 pred = clf.predict(features_test)
-print 'Prediction finishes'
 
-from sklearn.metrics import accuracy_score
-print 'Calculating Accuracy'
 accuracy = accuracy_score(labels_test, pred)
 print 'The accuracy is ', accuracy
 
@@ -57,3 +47,23 @@ try:
     prettyPicture(clf, features_test, labels_test)
 except NameError:
     pass
+
+# The accuracy is  0.92
+
+# n_neighbors = 35
+# The accuracy is 0.932
+
+# n_neighbors = 36
+# The accuracy is 0.928
+
+# n_neighbors = 37, 38, 39, 42
+# The accuracy is 0.932
+
+# n_neighbors = 50
+# The accuracy is 0.928
+
+
+
+
+
+

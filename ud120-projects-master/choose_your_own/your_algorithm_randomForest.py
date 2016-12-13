@@ -36,15 +36,11 @@ from sklearn.metrics import accuracy_score
 from sklearn import datasets
 from sklearn.tree import DecisionTreeClassifier
 from sklearn.metrics import zero_one_loss
-from sklearn.ensemble import AdaBoostClassifier
+from sklearn.ensemble import RandomForestClassifier
 
-X_test, y_test = features_test, labels_test
-X_train, y_train = features_train, labels_train
 
 # Create and fit an AdaBoosted decision tree
-clf = AdaBoostClassifier(DecisionTreeClassifier(max_depth=1),
-                         algorithm="SAMME",
-                         n_estimators=50)
+clf = RandomForestClassifier(n_estimators=5)
 
 clf.fit(features_train, labels_train)
 
@@ -59,14 +55,14 @@ try:
 except NameError:
     pass
 
-# n_estimators=400
-# acc: 0.924
+# n_estimators=25
+# acc: 0.916
 
-# n_estimators=400
-# acc: 0.924
+# n_estimators=10
+# acc: 0.92
 
-# n_estimators=400
-# acc: 0.924
+# n_estimators=6
+# acc: 0.932
 
-# n_estimators=400
+# n_estimators=700
 # acc: 0.924
