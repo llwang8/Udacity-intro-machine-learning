@@ -34,7 +34,7 @@ plt.show()
 from sklearn.metrics import accuracy_score
 from sklearn.neighbors import KNeighborsClassifier
 
-n_neighbors = 38
+n_neighbors = 35s
 
 clf = KNeighborsClassifier(n_neighbors)
 clf = clf.fit(features_train, labels_train)

@@ -64,5 +64,5 @@ except NameError:
 # n_estimators=6
 # acc: 0.932
 
-# n_estimators=700
+# n_estimators=5
 # acc: 0.924

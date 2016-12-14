@@ -1,17 +1,8 @@
 #!/usr/bin/python
 
 """
-    Starter code for the regression mini-project.
-
-    Loads up/formats a modified version of the dataset
-    (why modified?  we've removed some trouble points
-    that you'll find yourself in the outliers mini-project).
-
-    Draws a little scatterplot of the training/testing data
-
-    You fill in the regression code where indicated:
+    regression bonus against the long term incentive
 """
-
 
 import sys
 import pickle
@@ -21,7 +12,7 @@ dictionary = pickle.load( open("../final_project/final_project_dataset_modified.
 
 ### list the features you want to look at--first item in the
 ### list will be the "target" feature
-features_list = ["bonus", "salary"]
+features_list = ["bonus", "long_term_incentive"]
 data = featureFormat( dictionary, features_list, remove_any_zeroes=True)
 target, features = targetFeatureSplit( data )
 
@@ -62,10 +53,6 @@ try:
     plt.plot( feature_test, reg.predict(feature_test) )
 except NameError:
     pass
-
-reg.fit(feature_test, target_test)
-plt.plot(feature_train, reg.predict(feature_train), color="r")
-
 plt.xlabel(features_list[1])
 plt.ylabel(features_list[0])
 plt.legend()
@@ -73,26 +60,7 @@ plt.show()
 
 
 print 'score:', reg.score(feature_train, target_train)
-# score: 0.0455091926995
+# score: 0.217085971258
 
 print 'score:', reg.score(feature_test, target_test)
-# score:
-
-
-#------------------------
-reg.fit(feature_test, target_test)
-reg.predict(feature_train)
-print reg.coef_
-print reg.intercept_
-print 'score:', reg.score(feature_train, target_train)
-# score: -0.123597985403
-
-print 'score:', reg.score(feature_test, target_test)
-# score: 0.251488150398
-
-# The new regression fit on on test.
-# coef: [ 2.27410114]
-# intercept: 124444.388866
-# score: -0.123597985403
-# score: 0.251488150398
-
+# score: -0.59271289995
