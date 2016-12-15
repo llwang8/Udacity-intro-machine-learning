@@ -1,11 +1,8 @@
-#!/usr/bin/python 
+#!/usr/bin/python
 
-""" 
+"""
     Skeleton code for k-means clustering mini-project.
 """
-
-
-
 
 import pickle
 import numpy
@@ -14,10 +11,7 @@ import sys
 sys.path.append("../tools/")
 from feature_format import featureFormat, targetFeatureSplit
 
-
-
-
-def Draw(pred, features, poi, mark_poi=False, name="image.png", f1_name="feature 1", f2_name="feature 2"):
+def Draw(pred, features, poi, mark_poi=False, name="image.png", f1_name="feature 1", f2_name="feature 2", f3_name="feature_3"):
     """ some plotting code designed to help you visualize your clusters """
 
     ### plot each cluster with a different color--add more colors for
@@ -33,44 +27,84 @@ def Draw(pred, features, poi, mark_poi=False, name="image.png", f1_name="feature
                 plt.scatter(features[ii][0], features[ii][1], color="r", marker="*")
     plt.xlabel(f1_name)
     plt.ylabel(f2_name)
+
     plt.savefig(name)
     plt.show()
 
 
 
+
 ### load in the dict of dicts containing all the data on each person in the dataset
 data_dict = pickle.load( open("../final_project/final_project_dataset.pkl", "r") )
-### there's an outlier--remove it! 
+### there's an outlier--remove it!
 data_dict.pop("TOTAL", 0)
 
 
-### the input features we want to use 
-### can be any key in the person-level dictionary (salary, director_fees, etc.) 
+### the input features we want to use
+### can be any key in the person-level dictionary (salary, director_fees, etc.)
 feature_1 = "salary"
 feature_2 = "exercised_stock_options"
+feature_3 = "total_payments"
 poi  = "poi"
-features_list = [poi, feature_1, feature_2]
+exStockOp = "exercised_stock_options"
+features_list = [poi, feature_1, feature_2, feature_3]
 data = featureFormat(data_dict, features_list )
 poi, finance_features = targetFeatureSplit( data )
 
 
+
+# get max and min of exerciseds_stock_options
+#features_list = [exStockOp, feature_1, feature_2, feature_3]
+#data = featureFormat(data_dict, features_list, True, True, True)
+#exStockOp, finance_features = targetFeatureSplit( data )
+exStockOps = []
+salary = []
+for user in data_dict:
+    val_e = data_dict[user]['exercised_stock_options']
+    val_s = data_dict[user]['salary']
+    if val_e != 'NaN':
+        exStockOps.append(val_e)
+    if val_s != 'NaN':
+        salary.append(val_s)
+print 'max of exercised_stock_options:', max(exStockOps)
+print 'min of exercised_stock_options:', min(exStockOps)
+# max of exercised_stock_options: 34348384.0
+# min of exercised_stock_options: 17378.0
+print 'max of salary:', max(salary)
+print 'min of salary:', min(salary)
+#max of salary: 1111258
+#min of salary: 477
+
+
+
+
+
 ### in the "clustering with 3 features" part of the mini-project,
-### you'll want to change this line to 
+### you'll want to change this line to
 ### for f1, f2, _ in finance_features:
 ### (as it's currently written, the line below assumes 2 features)
-for f1, f2 in finance_features:
-    plt.scatter( f1, f2 )
+for f1, f2, f3 in finance_features:
+    plt.scatter( f1, f2, f3 )
+    plt.xlabel(feature_1)
+    plt.ylabel(feature_2)
+
 plt.show()
 
 ### cluster here; create predictions of the cluster labels
 ### for the data and store them to a list called pred
-
-
+from sklearn.cluster import KMeans
+kmeans = KMeans(n_clusters=2, random_state=0)
+kmeans.fit(finance_features)
+pred = kmeans.predict(finance_features)
+print len(pred)
 
 
 ### rename the "name" parameter when you change the number of features
 ### so that the figure gets saved to a different file
 try:
-    Draw(pred, finance_features, poi, mark_poi=False, name="clusters.pdf", f1_name=feature_1, f2_name=feature_2)
+    Draw(pred, finance_features, poi, mark_poi=False, name="clusters3f.pdf", f1_name=feature_1, f2_name=feature_2, f3_name=feature_3)
 except NameError:
     print "no predictions object named pred found, no clusters to plot"
+
+
+
