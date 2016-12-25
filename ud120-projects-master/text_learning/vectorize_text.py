@@ -41,23 +41,36 @@ for name, from_person in [("sara", from_sara), ("chris", from_chris)]:
     for path in from_person:
         ### only look at first 200 emails when developing
         ### once everything is working, remove this line to run over full dataset
-        temp_counter += 1
-        if temp_counter < 200:
-            path = os.path.join('..', path[:-1])
-            print path
-            email = open(path, "r")
+        #temp_counter += 1
+        #if temp_counter < 200:
+
+        path = os.path.join('..', path[:-1])
+        #print path
+        email = open(path, "r")
 
             ### use parseOutText to extract the text from the opened email
+        text = parseOutText(email)
 
             ### use str.replace() to remove any instances of the words
-            ### ["sara", "shackleton", "chris", "germani"]
+        char_remove = ["sara", "shackleton", "chris", "germani"]
+
+            #set_char_remove = set(["sara", "shackleton", "chris", "germani"])
+            # text.translate(None, ''.join(["sara", "shackleton", "chris", "germani"]))
+            #text = ''.join([c for c in text if c not in set_char_remove])
+        for e in char_remove:
+            text = text.replace(e, '')
 
             ### append the text to word_data
+        word_data.append(text)
 
             ### append a 0 to from_data if email is from Sara, and 1 if email is from Chris
+            # from_data.append(0 if name == 'Sara' else 1)
+        if name == 'Sara':
+            from_data.append(0)
+        elif name == 'Chris':
+            from_data.append(1)
 
-
-            email.close()
+        email.close()
 
 print "emails processed"
 from_sara.close()
@@ -66,10 +79,23 @@ from_chris.close()
 pickle.dump( word_data, open("your_word_data.pkl", "w") )
 pickle.dump( from_data, open("your_email_authors.pkl", "w") )
 
+print word_data[152]
 
-
+# result:
+# tjonesnsf stephani and sam need nymex calendar
 
 
 ### in Part 4, do TfIdf vectorization here
+from nltk.corpus import stopwords
+sw = stopwords.words('english')
+
+from sklearn.feature_extraction.text import TfidfVectorizer
+vectorizer = TfidfVectorizer(stop_words='english', lowercase=True)
+vectorizer.fit_transform(word_data)
+print len(vectorizer.get_feature_names())
+# result 42285 (correct one is 38757) ???
 
 
+#What is word number 34597 in your TfIdf?
+print vectorizer.get_feature_names()[34597]
+# result: u'stephaniethank' ???
