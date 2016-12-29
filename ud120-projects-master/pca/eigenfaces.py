@@ -66,7 +66,7 @@ X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.25, random
 ###############################################################################
 # Compute a PCA (eigenfaces) on the face dataset (treated as unlabeled
 # dataset): unsupervised feature extraction / dimensionality reduction
-n_components = 150
+n_components = 250
 
 print "Extracting the top %d eigenfaces from %d faces" % (n_components, X_train.shape[0])
 t0 = time()
@@ -144,3 +144,47 @@ eigenface_titles = ["eigenface %d" % i for i in range(eigenfaces.shape[0])]
 plot_gallery(eigenfaces, eigenface_titles, h, w)
 
 pl.show()
+
+#====================
+# Quiz: Explained Variance of Each PC
+
+print pca.explained_variance_ratio_[:2]
+#result: [ 0.19346361  0.15116848]
+
+# Quiz: F1 Score vs. No. of PCs
+# could go either way
+# n_components, Precision,   f1-score
+# 150,  0.62,   0.48
+# 160, 0.44,  0.52
+# 170, 0.59, 0.67
+# 180, 0.64, 0.67
+# 190, 0.54, 0.54
+
+#=====================
+# 10, 0.09,   0.11
+# 15, 0.36,   0.33
+# 25, 0.56,   0.62
+# 50, 0.64,   0.67
+# 100, 0.64,  0.67
+# 250, 0.53,  0.60
+# f1-score higher the better
+
+#======================
+# Dimensionality Reduction
+# Overfitting with many Pcs leads to f1-score droping
+
+
+#======================
+# What is the good way to select the number of principal components
+# it's all about trying different things and seeing what works best.
+# Train on different number of PCs and see how accuracy responds -
+# cut off when it becomes apparent that adding more PCs doesn't buy
+# you more discriminations.
+# One thing you don't want to do is to perform feature selection before
+# you go into PCA
+# But PCA is very computationally expensive
+
+
+
+
+
