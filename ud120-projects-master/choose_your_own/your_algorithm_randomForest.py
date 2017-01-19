@@ -39,7 +39,7 @@ from sklearn.metrics import zero_one_loss
 from sklearn.ensemble import RandomForestClassifier
 
 
-# Create and fit an AdaBoosted decision tree
+# Create and fit RandomForest Classifier
 clf = RandomForestClassifier(n_estimators=5)
 
 clf.fit(features_train, labels_train)

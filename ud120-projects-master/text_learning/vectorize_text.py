@@ -64,11 +64,11 @@ for name, from_person in [("sara", from_sara), ("chris", from_chris)]:
         word_data.append(text)
 
             ### append a 0 to from_data if email is from Sara, and 1 if email is from Chris
-            # from_data.append(0 if name == 'Sara' else 1)
-        if name == 'Sara':
-            from_data.append(0)
-        elif name == 'Chris':
-            from_data.append(1)
+        from_data.append(0 if name == 'Sara' else 1)
+        #if name == 'Sara':
+        #    from_data.append(0)
+        #else:
+        #    from_data.append(1)
 
         email.close()
 
@@ -76,11 +76,16 @@ print "emails processed"
 from_sara.close()
 from_chris.close()
 
+print 'word_data:', len(word_data)
+print 'from_data:', len(from_data)
+
+# word_data: 17578
+# from_data: 17578
+
 pickle.dump( word_data, open("your_word_data.pkl", "w") )
 pickle.dump( from_data, open("your_email_authors.pkl", "w") )
 
-print word_data[152]
-
+print 'word_data[152]', word_data[152]
 # result:
 # tjonesnsf stephani and sam need nymex calendar
 
@@ -97,5 +102,5 @@ print len(vectorizer.get_feature_names())
 
 
 #What is word number 34597 in your TfIdf?
-print vectorizer.get_feature_names()[34597]
+print 'number 34597 in your TfIdf:', vectorizer.get_feature_names()[34597]
 # result: u'stephaniethank' ???
