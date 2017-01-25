@@ -88,10 +88,10 @@ salary_s = [min(salary), 200000.0, max(salary)]
 exStockOps_s = [min(exStockOps), 1000000.0, max(exStockOps)]
 salary_s = numpy.array([[s] for s in salary_s])
 exStockOps = numpy.array([[e] for e in exStockOps])
-scaler_salary = MinMaxScaler()
-scaler_exStockOps = MinMaxScaler()
-rescaled_salary = scaler_salary.fit_transform(salary_s)
-rescaled_exStockOps = scaler_salary.fit_transform(exStockOps_s)
+scaler = MinMaxScaler()
+
+rescaled_salary = scaler.fit_transform(salary_s)
+rescaled_exStockOps = scaler.fit_transform(exStockOps_s)
 print rescaled_salary
 print rescaled_exStockOps
 # [ [ 0.        ], [ 0.17962407], [ 1.        ]]
