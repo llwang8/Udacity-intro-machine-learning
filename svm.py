@@ -1,5 +1,5 @@
 # Intro to Machine Learning
-# Lesson.2: SVM
+# Lesson.3: SVM
 
 #===========================================
 

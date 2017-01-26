@@ -63,12 +63,15 @@ def featureFormat( dictionary, features, remove_NaN=True, remove_all_zeroes=True
 
     for key in keys:
         tmp_list = []
+
         for feature in features:
             try:
                 dictionary[key][feature]
             except KeyError:
                 print "error: key ", feature, " not present"
                 return
+
+
             value = dictionary[key][feature]
             if value=="NaN" and remove_NaN:
                 value = 0
@@ -120,6 +123,7 @@ def targetFeatureSplit( data ):
     for item in data:
         target.append( item[0] )
         features.append( item[1:] )
+
 
     return target, features
 
