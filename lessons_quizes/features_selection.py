@@ -4,7 +4,7 @@
 # Features Selecting
 
 #============================
-# Quiz: A New Enron Features
+# 3. Quiz: A New Enron Features
 
 
 ###
@@ -83,7 +83,7 @@ def poiFlagEmail(f):
 
 
 #============================
-# Quiz: Visualizing Your New Features
+# 4. Quiz: Visualizing Your New Features
 
 import pickle
 from get_data import getData
@@ -132,15 +132,18 @@ for name in data_dict:
     from_messages = data_point["from_messages"]
     fraction_to_poi = computeFraction( from_this_person_to_poi, from_messages )
     print fraction_to_poi
+    data_point["fraction_to_poi"] = fraction_to_poi
+
     submit_dict[name]={"from_poi_to_this_person":fraction_from_poi,
                        "from_this_person_to_poi":fraction_to_poi}
-    data_point["fraction_to_poi"] = fraction_to_poi
+
 
 
 #####################
 
 def submitDict():
     return submit_dict
+
 
 
 
